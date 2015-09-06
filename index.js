@@ -14,7 +14,7 @@ module.exports = {
   },
   treeForPublic: function (tree) {
     var version = this.config().APP.version;
-    var versionFile = writeFile('/version.json', version);
+    var versionFile = writeFile('/version.json', JSON.stringify(version));
     return mergeTrees([tree, versionFile].filter(Boolean));
   }
 };
