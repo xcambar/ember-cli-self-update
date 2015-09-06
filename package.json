@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-self-update",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Your Ember app watches for a newer version",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -39,7 +39,16 @@
     "ember-try": "0.0.6"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "self",
+    "auto",
+    "update",
+    "reload",
+    "restart",
+    "autoupdate",
+    "selfupdate",
+    "self-update",
+    "auto-update"
   ],
   "dependencies": {
     "ember-cli-app-version": "0.5.0",
