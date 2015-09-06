@@ -1,9 +1,9 @@
 /* jshint node: true */
 'use strict';
 
-var writeFile = require('broccoli-file-creator');
-var mergeTrees = require('broccoli-merge-trees');
-var appVersion = require('ember-cli-app-version');
+var writeFile   = require('broccoli-file-creator');
+var mergeTrees  = require('broccoli-merge-trees');
+var appVersion  = require('ember-cli-app-version');
 
 module.exports = {
   name: 'ember-cli-self-update',
