@@ -1,4 +1,4 @@
-# Ember-cli-self-update
+# Ember-cli-self-update [![TravisCI Badge](https://travis-ci.org/xcambar/ember-cli-self-update.svg)](https://travis-ci.org/xcambar/ember-cli-self-update)
 
 Let your Ember app check for a more recent version of itself.
 
