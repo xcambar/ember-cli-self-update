@@ -30,7 +30,7 @@ export default Ember.Service.extend({
   },
   _cyclicWatch() {
     return ajax(this._buildURI())
-    .then(this._compareVersions.bind(this), ()=> {
+    .then(Ember.run.bind(this, this._compareVersions), ()=> {
       Ember.Logger.warn('Unable to fetch version information');
     }).then(()=> {
       const currentCycle = this._runAt(this.get('delay'));
