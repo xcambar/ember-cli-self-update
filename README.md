@@ -1,6 +1,25 @@
 # Ember-cli-self-update
 
-This README outlines the details of collaborating on this Ember addon.
+Let your Ember app check for a more recent version of itself.
+
+## What?
+
+This addon offers a service for your Ember applications that periodically
+checks if a newer version of your app is available.
+
+It allows you to build a nice UX (not included) for your users so they can
+always benefit from the latest version of your code.
+
+## Why?
+
+A classical syndrome in SPAs is that the users never close the tab/window.
+
+It means that there are potentially many versions of your app
+running in the wild.
+
+This Ember-cli addon allows you to better limit the number of live versions
+by automatically checking that a newer version is available, and
+reload the app with the latest version.
 
 ## Installation
 
