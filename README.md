@@ -21,6 +21,23 @@ This Ember-cli addon allows you to better limit the number of live versions
 by automatically checking that a newer version is available, and
 reload the app with the latest version.
 
+## How?
+
+Inject the service where you see fit. Here in the ``ApplicationController`:
+
+```js
+//app/controllers/application.js
+
+import Ember from 'ember';
+
+export default Ember.Controller.extend({
+  selfupdate: Ember.inject.service(),
+  willInitSelfUpdate: function() {
+    this.get('selfupdate').watchUpdates();
+  }.on('init')
+});
+```
+
 ## Installation
 
 * `git clone` this repository
