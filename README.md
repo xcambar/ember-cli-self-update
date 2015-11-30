@@ -38,6 +38,18 @@ export default Ember.Controller.extend({
 });
 ```
 
+Alternatively, you can also allow/disallow self-updates trough configuration:
+
+```js
+//config/environment.js
+
+ENV.APP.allowSelfUpdate = false;
+
+```
+
+The self-updates are disabled __if and only if__
+the value of `allowSelfUpdate` is false.
+
 ## Installation
 
 * `git clone` this repository
