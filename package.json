@@ -22,7 +22,6 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
     "ember-cli": "1.13.12",
-    "ember-cli-app-version": "^1.0.0",
     "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "^1.1.0",
     "ember-cli-htmlbars": "^1.0.1",
@@ -53,7 +52,7 @@
   "dependencies": {
     "broccoli-file-creator": "^1.0.0",
     "broccoli-merge-trees": "^0.2.3",
-    "ember-cli-app-version": "0.5.0",
+    "ember-cli-app-version": "^1.0.0",
     "ember-cli-babel": "^5.1.5",
     "git-repo-version": "^0.3.0"
   },

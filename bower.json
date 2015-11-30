@@ -11,9 +11,7 @@
     "ember-resolver": "~0.1.20",
     "jquery": "^1.11.3 || ^2.1.0",
     "loader.js": "ember-cli/loader.js#3.2.1",
-    "qunit": "~1.20.0"
-  },
-  "devDependencies": {
-    "jquery-mockjax": "2.0.1"
+    "qunit": "~1.20.0",
+    "jquery-mockjax": "^2.0.1"
   }
 }
