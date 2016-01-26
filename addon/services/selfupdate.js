@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import ajax from 'ic-ajax';
+import getOwner from 'ember-getowner-polyfill';
 
 let hasUpdate = false;
 
 export default Ember.Service.extend({
-  endpoint: Ember.computed(()=> {
-    return '/version.json';
+  endpoint: Ember.computed(function() {
+    return getOwner(this)._lookupFactory('config:environment').APP.versionFileName || '/version.json';
   }).readOnly(),
   hasUpdate: Ember.computed(()=> hasUpdate).readOnly().volatile(),
   delay: 5 * 60 * 1000, //ms <=> 5min
