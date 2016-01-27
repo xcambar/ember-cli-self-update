@@ -38,7 +38,11 @@ export default Ember.Controller.extend({
 });
 ```
 
-Alternatively, you can also allow/disallow self-updates trough configuration:
+### Configuration
+
+#### Disable self update
+
+You can also allow/disallow self-updates trough configuration:
 
 ```js
 //config/environment.js
@@ -49,6 +53,17 @@ ENV.APP.allowSelfUpdate = false;
 
 The self-updates are disabled __if and only if__
 the value of `allowSelfUpdate` is false.
+
+#### Change the endpoint
+
+The endpoint (which is really only the destination of the generated JSON file)
+can be configured:
+
+```js
+//config/environment.js
+
+ENV.APP.versionEndpoint = 'myVersionFile.json';
+```
 
 ## Installation
 

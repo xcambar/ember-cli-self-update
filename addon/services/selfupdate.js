@@ -6,7 +6,7 @@ let hasUpdate = false;
 
 export default Ember.Service.extend({
   endpoint: Ember.computed(function() {
-    return getOwner(this)._lookupFactory('config:environment').APP.versionFileName || '/version.json';
+    return getOwner(this)._lookupFactory('config:environment').APP.versionEndpoint || '/version.json';
   }).readOnly(),
   hasUpdate: Ember.computed(()=> hasUpdate).readOnly().volatile(),
   delay: 5 * 60 * 1000, //ms <=> 5min
@@ -34,6 +34,9 @@ export default Ember.Service.extend({
     .then(Ember.run.bind(this, this._compareVersions), ()=> {
       Ember.Logger.warn('Unable to fetch version information');
     }).then(()=> {
+      if (this.get('isDestroyed')) {
+        return { currentCycle: null };
+      }
       const currentCycle = this._runAt(this.get('delay'));
       return { currentCycle };
     });

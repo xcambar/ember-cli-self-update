@@ -5,12 +5,12 @@ var writeFile   = require('broccoli-file-creator');
 var mergeTrees  = require('broccoli-merge-trees');
 var appVersion  = require('ember-cli-app-version');
 
-var versionFileName;
+var endpoint;
 
 function appendVersionFile(tree) {
   /*jshint validthis:true */
   var version = this.config().APP.version;
-  var versionFile = writeFile(versionFileName, JSON.stringify(version));
+  var versionFile = writeFile(endpoint, JSON.stringify(version));
   return mergeTrees([tree, versionFile].filter(Boolean));
 }
 
@@ -19,7 +19,7 @@ module.exports = {
   config: function (env, config) {
     var versionInfo = { APP: {} };
     appVersion.config.call(this, env, versionInfo);
-    versionFileName = versionFileName || config.APP.versionFileName || '/version.json';
+    endpoint = endpoint || config.APP.versionEndpoint || '/version.json';
     return versionInfo;
   },
   treeForPublic: appendVersionFile,
