@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import ajax from 'ic-ajax';
 import getOwner from 'ember-getowner-polyfill';
+import ajax from 'ember-ajax';
 
 let hasUpdate = false;
 
