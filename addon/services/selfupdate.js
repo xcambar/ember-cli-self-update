@@ -31,8 +31,9 @@ export default Ember.Service.extend({
   },
   _cyclicWatch() {
     return ajax(this._buildURI())
-    .then(Ember.run.bind(this, this._compareVersions), ()=> {
+    .then(Ember.run.bind(this, this._compareVersions), (reason)=> {
       Ember.Logger.warn('Unable to fetch version information');
+      Ember.Logger.debug(reason);
     }).then(()=> {
       if (this.get('isDestroyed')) {
         return { currentCycle: null };
