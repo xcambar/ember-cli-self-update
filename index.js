@@ -24,9 +24,5 @@ module.exports = {
   },
   treeForPublic: appendVersionFile,
   treeForTestSupport: appendVersionFile,
-  included: function (app) {
-    if (app.env === 'test') {
-      app.import(app.bowerDirectory + '/jquery-mockjax/dist/jquery.mockjax.js');
-    }
-  }
+  included: function (app) { }
 };

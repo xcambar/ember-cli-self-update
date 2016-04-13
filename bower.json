@@ -11,6 +11,6 @@
     "jquery": "^1.11.3 || ^2.1.0",
     "loader.js": "ember-cli/loader.js#3.4.0",
     "qunit": "~1.20.0",
-    "jquery-mockjax": "^2.0.1"
+    "pretender": "~0.10.0"
   }
 }

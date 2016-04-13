@@ -1,23 +1,19 @@
-import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
+import FakeServer, { stubRequest } from 'ember-cli-fake-server';
 
-const newVersion = 'base_version';
-let initialVersion, updateCheck, mockId;
+const newVersion = '"base_version"';
+let initialVersion, updateCheck;
 
 function mockVersion(version) {
-  Ember.$.mockjax.clear(mockId);
-  mockId = Ember.$.mockjax({
-    url: new RegExp('/version.json'),
-    type: 'GET',
-    status: 200,
-    responseText: version,
-    responseTime: 1
+  stubRequest('get', '/version.json', (request)=> {
+    request.ok(version);
   });
 }
 
 moduleFor('service:selfupdate', 'Unit | Service | selfupdate', {
   needs: ['config:environment'],
   beforeEach() {
+    FakeServer.start();
     mockVersion(newVersion);
     updateCheck = this.subject();
     initialVersion = updateCheck.get('version');
@@ -25,7 +21,7 @@ moduleFor('service:selfupdate', 'Unit | Service | selfupdate', {
   },
   afterEach() {
     updateCheck.cancel();
-    $.mockjax.clear();
+    FakeServer.stop();
   }
 });
 
@@ -48,10 +44,10 @@ test('the watcher auto restarts after a fixed delay', function (assert) {
 
 test('the status remains unchanged without a version change', function (assert) {
   assert.expect(1);
-  $.mockjax.clear(); // The initial version will be fetched
+  mockVersion(initialVersion);
   updateCheck.watchUpdates();
   return updateCheck.get('_timer').then(()=> {
-    assert.notOk(updateCheck.get('hasUpdate'), 'Version did not change, no update available');
+    assert.ok(!updateCheck.get('hasUpdate'), 'Version did not change, no update available');
   });
 });
 
@@ -72,18 +68,14 @@ test('it supports rollback', function (assert) {
     mockVersion(initialVersion);
     return updateCheck.get('_timer');
   }).then(()=> {
-    assert.notOk(updateCheck.get('hasUpdate'), 'version has rolled back, mo more update available');
+    assert.ok(!updateCheck.get('hasUpdate'), 'version has rolled back, mo more update available');
   });
 });
 
 test('it is resilient to network errors', function (assert) {
   assert.expect(2);
-  Ember.$.mockjax.clear(mockId);
-  mockId = Ember.$.mockjax({
-    url: new RegExp('/version.json'),
-    type: 'GET',
-    status: 404,
-    responseTime: 1
+  stubRequest('get', '/version.json', (request)=> {
+    request.notFound();
   });
   updateCheck.watchUpdates();
   var _timer = updateCheck.get('_timer');
@@ -97,15 +89,10 @@ test('it is resilient to network errors', function (assert) {
 
 test('The endpoint can be configured', function (assert) {
   assert.expect(1);
-  $.mockjax.clear();
   const conf = this.container.lookupFactory('config:environment');
   conf.APP.versionEndpoint = '/__version.json';
-  mockId = Ember.$.mockjax({
-    url: new RegExp('/__version.json'),
-    type: 'GET',
-    status: 200,
-    responseText: 'NEW',
-    responseTime: 1
+  stubRequest('get', '/__version.json', (request)=> {
+    request.ok('NEW');
   });
   updateCheck.watchUpdates();
   var _timer = updateCheck.get('_timer');
