@@ -1,14 +1,22 @@
 import Ember from 'ember';
-import getOwner from 'ember-getowner-polyfill';
 import ajax from 'ember-ajax';
+
+const {
+  computed,
+  getOwner,
+  Logger,
+  RSVP: { Promise },
+  run,
+  Service
+} = Ember;
 
 let hasUpdate = false;
 
-export default Ember.Service.extend({
-  endpoint: Ember.computed(function() {
+export default Service.extend({
+  endpoint: computed(function() {
     return getOwner(this)._lookupFactory('config:environment').APP.versionEndpoint || '/version.json';
   }).readOnly(),
-  hasUpdate: Ember.computed(()=> hasUpdate).readOnly().volatile(),
+  hasUpdate: computed(()=> hasUpdate).readOnly().volatile(),
   delay: 5 * 60 * 1000, //ms <=> 5min
   _cancelling: false,
   _cancelled: false,
@@ -31,9 +39,9 @@ export default Ember.Service.extend({
   },
   _cyclicWatch() {
     return ajax(this._buildURI())
-    .then(Ember.run.bind(this, this._compareVersions), (reason)=> {
-      Ember.Logger.warn('Unable to fetch version information');
-      Ember.Logger.debug(reason);
+    .then(run.bind(this, this._compareVersions), (reason)=> {
+      Logger.warn('Unable to fetch version information');
+      Logger.debug(reason);
     }).then(()=> {
       if (this.get('isDestroyed')) {
         return { currentCycle: null };
@@ -51,8 +59,8 @@ export default Ember.Service.extend({
       });
       return;
     }
-    const promise = new Ember.RSVP.Promise((resolve/* , reject */)=> {
-      Ember.run.later(this, ()=> {
+    const promise = new Promise((resolve/* , reject */)=> {
+      run.later(this, ()=> {
         resolve(this._cyclicWatch());
       }, delay);
     });

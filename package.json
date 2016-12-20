@@ -58,7 +58,6 @@
     "ember-ajax": "2.5.3",
     "ember-cli-app-version": "^2.0.1",
     "ember-cli-babel": "^5.1.5",
-    "ember-getowner-polyfill": "1.1.1",
     "git-repo-version": "^0.4.1"
   },
   "ember-addon": {
