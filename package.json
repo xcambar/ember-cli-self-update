@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-self-update",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Let your Ember app periodically check for a newer version of itself",
   "directories": {
     "doc": "doc",
